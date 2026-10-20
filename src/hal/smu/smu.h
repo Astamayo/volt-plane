@@ -1,7 +1,11 @@
 
 #include <memory>
 
-enum class CHANNEL {A, B};
+enum class CHANNEL
+{
+    A,
+    B
+};
 
 class SMU
 {
