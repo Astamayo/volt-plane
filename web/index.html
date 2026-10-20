@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>Volt Plane</title>
+  <link rel="stylesheet" href="/app.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="mark" aria-hidden="true"></span>
+      <div>
+        <strong>Volt Plane</strong>
+        <small id="hal">Opening the bench…</small>
+      </div>
+    </div>
+    <div class="top-meta">
+      <span id="sim" class="tag">Simulation</span>
+      <span id="live" class="tag live" hidden>Output live</span>
+      <span id="station">BENCH-01</span>
+      <time id="clock"></time>
+    </div>
+    <div class="top-actions">
+      <button id="connect-all" type="button">Connect all</button>
+      <button id="out-off" type="button" class="danger">All outputs off</button>
+    </div>
+  </header>
+
+  <div id="busbar" class="busbar" aria-label="Interfaces"></div>
+
+  <nav class="tabs" aria-label="Views">
+    <button type="button" data-view="bench" class="active">Bench</button>
+    <button type="button" data-view="buses">Buses</button>
+    <button type="button" data-view="sequence">Sequences</button>
+    <span id="link" class="link">connecting</span>
+  </nav>
+
+  <main>
+    <section id="view-bench">
+      <div id="list" class="list" aria-label="Instruments">
+        <p class="empty">Opening bench…</p>
+      </div>
+      <div class="stage-main">
+        <div id="panel" class="panel">
+          <p class="empty">Select an instrument.</p>
+        </div>
+        <form id="terminal" class="terminal">
+          <div id="term-log" class="term-log" aria-live="polite"></div>
+          <div class="term-row">
+            <label id="term-prompt" for="term-input">—</label>
+            <input id="term-input" name="line" autocomplete="off" spellcheck="false" placeholder="Connect an instrument to open a session" disabled />
+            <button id="term-send" type="submit">Send</button>
+          </div>
+          <p class="hint">*IDN? · MEAS:VOLT? · MEAS:CURR? · OUTP ON · SOUR:VOLT 3.3 · A:MEAS:CURR?</p>
+        </form>
+      </div>
+      <div id="log" class="log" aria-label="Bench log"></div>
+    </section>
+
+    <section id="view-buses" hidden>
+      <div class="view-head">
+        <div>
+          <h1>Interfaces</h1>
+          <p>GPIB, VISA, CAN, Ethernet, and USB. Scan refreshes the resource list on the simulated bus.</p>
+        </div>
+        <button id="scan-all" type="button">Scan all</button>
+      </div>
+      <div id="buses" class="bus-grid"></div>
+    </section>
+
+    <section id="view-sequence" hidden>
+      <div class="view-head">
+        <div>
+          <h1>Sequences</h1>
+          <p id="seq-detail">Run a scripted check against the simulated bench. Abort leaves cleanup steps in place.</p>
+        </div>
+        <button id="seq-abort" type="button" class="danger" disabled>Abort</button>
+      </div>
+      <div id="sequences" class="seq-grid"></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+  <script src="/app.js"></script>
+</body>
+</html>
